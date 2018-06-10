@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	   xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
+
+	<!-- 数据库连接池 -->
+	<!-- 1.配置数据库相关参数properties的属性：${url} -->
+	<context:property-placeholder location="classpath:conf/*.properties" />
+
+	<!-- 数据库连接池 -->
+	<!-- 2.数据库连接池 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		  destroy-method="close">
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="driverClass" value="${jdbc.driver}" />
+		<!-- 设置数据库连接池的最大连接数 -->
+		<property name="maxPoolSize">
+			<value>50</value>
+		</property>
+		<!-- 设置数据库连接池的最小连接数 -->
+		<property name="minPoolSize">
+			<value>5</value>
+		</property>
+		<!-- 设置数据库连接池的初始化连接数 -->
+		<property name="initialPoolSize">
+			<value>5</value>
+		</property>
+		<!-- 设置数据库连接池的连接最大空闲时间 -->
+		<property name="maxIdleTime">
+			<value>20</value>
+		</property>
+		<!-- c3p0缓存Statement的数量数 -->
+		<property name="maxStatements">
+			<value>50</value>
+		</property>
+		<!-- 当连接池里面的连接用完的时候,C3P0一下获取新的连接数 -->
+		<property name="acquireIncrement">
+			<value>20</value>
+		</property>
+	</bean>
+
+	<!-- hibernate 管理-->
+	<!-- 加载配置方案2:在spring配置中放置hibernate配置信息 -->
+	<bean name="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" >
+		<!-- 将连接池注入到sessionFactory, hibernate会通过连接池获得连接 -->
+		<property name="dataSource" ref="dataSource" ></property>
+		<!-- 配置hibernate基本信息 -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.show_sql">true</prop><!-- 是否展示SQL -->
+				<prop key="hibernate.hbm2ddl.auto">update</prop><!-- 是否自动创建表结构 -->
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+				<!-- 解决session关闭问题 -->
+				<prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+				<prop key="hibernate.max_fetch_depth">3</prop>
+				<prop key="hibernate.connection.url" >jdbc:mysql://localhost:3306/test</prop>
+				<prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
+			</props>
+		</property>
+		<!-- 包扫描的方式加载注解类 -->
+		<property name="packagesToScan">
+			<list>
+				<value>com.ke.entity</value>
+			</list>
+		</property>
+	</bean>
+
+
+</beans>
