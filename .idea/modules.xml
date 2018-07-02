@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../mybatis_generator/mybatis_generator.iml" filepath="$PROJECT_DIR$/../mybatis_generator/mybatis_generator.iml" />
       <module fileurl="file://$PROJECT_DIR$/ssh_maven.iml" filepath="$PROJECT_DIR$/ssh_maven.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../ssm_maven/ssm_maven.iml" filepath="$PROJECT_DIR$/../ssm_maven/ssm_maven.iml" />
     </modules>
   </component>
 </project>

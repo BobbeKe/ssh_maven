@@ -2,11 +2,14 @@
 <project version="4">
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$" />
+    <file type="web" url="file://$PROJECT_DIR$/../ssm_maven" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/../ssm_maven/pom.xml" />
+        <option value="$PROJECT_DIR$/../mybatis_generator/pom.xml" />
       </list>
     </option>
   </component>

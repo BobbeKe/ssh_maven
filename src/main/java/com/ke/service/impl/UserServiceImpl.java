@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    @Transactional(rollbackFor={Exception.class, RuntimeException.class})
+    //@Transactional(rollbackFor={Exception.class, RuntimeException.class})
     @Override
     public String saveUser(User user) {
         return userDao.saveUser(user);
